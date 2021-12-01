@@ -1,0 +1,117 @@
+@charset "UTF-8";
+/* ——————————————————— CSS Reset ——————————————————— */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+  text-decoration: none;
+  outline: none;
+  font-family: inherit;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+ol, ul, li {
+  list-style: none;
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a img {
+  border: none;
+}
+
+button,
+a {
+  cursor: pointer;
+  color: inherit;
+}
+
+textarea {
+  resize: none;
+}
+
+button,
+input,
+textarea,
+select {
+  -moz-appearance: none !important;
+       appearance: none !important;
+  -webkit-appearance: none !important;
+  border-radius: 0;
+}
+
+body {
+  font-family: 'Overpass', sans-serif;
+}
+
+/* —————————————————————————————————————————————— */
+h1 {
+  font-weight: 600;
+}
+
+form {
+  position: relative;
+  width: 75vw;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  padding: 1rem;
+  font-family: 'Sora', sans-serif;
+  font-weight: 200;
+}
+
+input[type=text],
+input[type=file],
+input[type=email],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 10px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+select {
+  width: auto;
+}
+
+button {
+  width: 100%;
+  background-color: #3b3b3b;
+  color: white;
+  padding: 14px 20px;
+  margin: 1rem 0;
+  border: none;
+  border-radius: 4px;
+}
+
+input:focus {
+  background-color: #a0a0a0;
+}
+
+select:focus {
+  background-color: #a0a0a0;
+}
+
+label {
+  display: inline-block;
+  margin: 1rem 0 0.25rem 0;
+}
+
+input[type="checkbox"] {
+  display: inline-block;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  margin-left: 1rem;
+}
+/*# sourceMappingURL=style.css.map */
