@@ -2,6 +2,7 @@
 funtion functionName(argumentum) {
     parameter === "arumentum mint string";
 };
+
 const functionName = function ("arumentum mint string") {
 
     const argument = "argument mint string";
@@ -15,84 +16,84 @@ const functionName = () => {};
 functionName();
 */
 
-const inputElement = (type, name, label, connect) => { 
-    let content = `
-        <div>
-            <label for="${connect}">${label}</label> <br>
-            <input type="${type}" id="${connect}" name="${name}">
-        </div>`;
-    if (type === "checkbox") {
-        content = content.replace(`<br>`, "")
-    }
-    return content
-};
+// Változók és függvények létrehozása a loadEvent()-en kívül:
 
-const selectElement = (type, name, label, selectOptions) => { 
-    let optionElements = "";
-    for (const option of selectOptions) {
-        optionElements += `<option>${option}</option>`
-    }
+const inputElement = (type, name, label) => {
     return `
-        <div>
-            <label>${label}</label>
-            <${type} name=${name}>
-            ${optionElements}
-            </${type}>
-        </div>`
+    <div> 
+        <label for="${name}">${label}</label>
+        <input type="${type}" id="${name}" name="${name}">
+    </div>
+    `
 };
 
-    /*
-    const formElement = '<form id="form">' + inputElement("text", "firstname", "Keresztneved") + inputElement("file", "profilePicture", "Profilképed") + inputElement("email", "personalEmail", "Email címed") + inputElement("email", "personalEmail", "Email címed")
-    */
+const selectElement = (type, name, label, selectOptions) => {
+    let optionElements = "";
+    for (const options of selectOptions) {
+        optionElements += `<option value=${options}>${options} </option>`;
+    }
+
+    return `
+    <div> 
+        <label>${label}</label>
+        <${type} name="${name}">
+         ${optionElements}
+        </${type}>
+    </div>
+    `
+};
+
+/*
+const formElement = '<form id="form">' + inputElement("text", "firstName", "Keresztneved") + inputElement("file", "profilePicture", "Profilképed") + inputElement("email", "personalEmail", "E-mail címed") + inputElement("checkbox", "newsletter", "Szeretnél-e hírlevelet kapni") + selectElement("select", "where", "Hol hallottál rólunk?", ["internetről", "ismerőstől", "egyéb"]) + '<button id="gomb">OK</button></form>;
+*/
+
+
 const formElement = `
     <form id="form">
-        <h1>Űrlap</h1>
-        ${ inputElement("text", "firstname", "Keresztneved", "fname") }
-        ${ inputElement("email", "personalEmail", "E-mail címed", "mail") }
-        ${ inputElement("file", "profilePicture", "Profilképed", "picture") }
+        ${ inputElement("text", "firstName", "Keresztneved") }
+        ${ inputElement("file", "profilePicture", "Profilképed") }
+        ${ inputElement("email", "personalEmail", "E-mail címed") }
+        ${ inputElement("checkbox", "newsletter", "Szeretnél-e hírlevelet kapni oldalunkról?") }
+        ${ inputElement("checkbox", "terms", "Elfogadod-e a felhasználási feltételeket?") }
         ${ selectElement("select", "where", "Hol hallottál rólunk?", ["internetről", "ismerőstől", "egyéb"]) }
-        ${ inputElement("checkbox", "newsLetter", "Szeretnél-e hírlevelet kapni?", "check1") }
-        ${ inputElement("checkbox", "terms", "Elfogadod-e a felhasználási feltételeket?", "check2") }
 
-        <button>OK</button>
-
+        <button id="gomb">OK</button>
     </form>
 `;
+
 const formSubmit = (event) => {
-    event.preventDefault();  // itt nem fogja újratölteni az oldalt, nem tudja submit-olni
+    event.preventDefault();     // — nem lesznek elküldve az adatok!
     console.log(event);
-    const eT = event.target;
-    eT.classList.add("submitted");
-    let eTValue = eT.querySelector(`select[name="where"]`).value;
-    console.log(eTValue);
-}
+    event.target.classList.add("submitted");
+    const optionValue = event.target.querySelector(`select[name="where"]`).value;
+    console.log(optionValue);
+};
 
 const inputEvent = (event) => {
-    document.getElementById("inputValueContent").innerHTML = event.target.value;
-    console.log(event.target.value);
-}
 
-function loadEvent() {
+    let whichInput = event.target.getAttribute("name");
+    let fName = document.querySelector(`input[name="firstName"]`)
+    let tryForm = event.target.closest("#form");
+    console.log(tryForm);
+    if (whichInput === "firstName") {
+        document.getElementById("inputValueContent").innerHTML = event.target.value;
+    }
+};
 
-const root = document.getElementById("root");
+function loadEvent() {  // a loadEvent()-be csak a "kiíratások" és az eventek kerüljenek (?)
+    const root = document.getElementById("root");
+    root.insertAdjacentHTML("beforeend", formElement);
+    root.insertAdjacentHTML("beforeend", `
+    <div id="inputValueContent"></div>
+    `);
 
-root.insertAdjacentHTML("beforeend", formElement);
+    const form = document.getElementById("form");
+    form.addEventListener("submit", formSubmit);
 
-root.insertAdjacentHTML("beforeend", `
-    <div id="inputValueContent"></div>`);
-
-const form = document.getElementById("form");
-form.addEventListener("submit", formSubmit);
-
-const inputList = form.querySelectorAll("input");
-for (const input of inputList) {
-    input.addEventListener("input", inputEvent)
-}
-
-
-
-
-  
-}
+    const inputList = form.querySelectorAll("input");
+    for (const input of inputList) {
+        input.addEventListener("input", inputEvent);
+    }
+};
 
 window.addEventListener("load", loadEvent);
